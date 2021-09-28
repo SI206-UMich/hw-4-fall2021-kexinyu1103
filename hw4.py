@@ -45,7 +45,7 @@ class Cashier:
     def __init__(self, name, directory =[]):
         self.name = name
         self.directory = directory[:] # make a copy of the directory
-
+        
     # Whether the stall is in the cashier's directory
     def has_stall(self, stall):
         return stall in self.directory
@@ -192,12 +192,10 @@ class TestAllMethods(unittest.TestCase):
         # Test to see if has_item returns True when a stall has enough items left
         # Please follow the instructions below to create three different kinds of test cases 
         # Test case 1: the stall does not have this food item: 
-        
-        # Test case 2: the stall does not have enough food item: 
-        
-        # Test case 3: the stall has the food item of the certain quantity: 
         self.assertFalse(self.s1.has_item("Fries", 20))
+        # Test case 2: the stall does not have enough food item: 
         self.assertFalse(self.s1.has_item("Burger", 50))
+        # Test case 3: the stall has the food item of the certain quantity: 
         self.assertTrue(self.s1.has_item("Taco", 40))
 
 
@@ -226,19 +224,33 @@ class TestAllMethods(unittest.TestCase):
     
 ### Write main function
 def main():
+    
     #Create different objects 
+    in1= {"boba": 100, "ice cream": 60, "mochi": 50}
+    in2 = {"rice": 50, "noodle": 40, "veggie": 20}
+    f1 = Customer("Coco", 600)
+    f2 = Customer("Jack", 500)
+    f3 = Customer("Tina", 300)
+    s1 = Stall("Diagonal Alley", in1, cost = 5)
+    s2 = Stall("Womping Willow", in2, cost = 10)
+    c1 = Cashier("Tom")
+    c2 = Cashier("Lily")
+    c1.add_stall(s1)
+    c2.add_stall(s2)
 
     #Try all cases in the validate_order function
     #Below you need to have *each customer instance* try the four cases
     #case 1: the cashier does not have the stall 
+    f1.validate_order(c1,s2,"rice", 1)
     
     #case 2: the casher has the stall, but not enough ordered food or the ordered food item
-    
+    f2.validate_order(c1, s1, "mochi", 60)
     #case 3: the customer does not have enough money to pay for the order: 
-    
+    f3.validate_order(c2, s2, "rice", 50)
     #case 4: the customer successfully places an order
+    f1.validate_order(c1, s1, "boba", 2)
 
-    pass
+    
 
 if __name__ == "__main__":
 	main()
